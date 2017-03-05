@@ -1,0 +1,650 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n## Introduction\n[Stadtrad Hamburg](http://stadtrad.hamburg.de) is a (totally awsome!) bike rental service operated by the Deutsche Bahn. It turns out you can actually download the usage data using a SOAP API.",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eIntroduction\u003c/h2\u003e\n\u003cp\u003e\u003ca href\u003d\"http://stadtrad.hamburg.de\"\u003eStadtrad Hamburg\u003c/a\u003e is a (totally awsome!) bike rental service operated by the Deutsche Bahn. It turns out you can actually download the usage data using a SOAP API.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486539941637_-976627487",
+      "id": "20170208-084541_307656515",
+      "dateCreated": "Feb 8, 2017 8:45:41 AM",
+      "dateStarted": "Feb 14, 2017 3:34:36 PM",
+      "dateFinished": "Feb 14, 2017 3:34:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Getting the data\nSee my fork of [pyABike by Ik4ru5](https://github.com/Ik4ru5/pyABike) which calls Call a Bike SOAP API.\n\nIn allRides.py enter your credentials\n```python\nuserName\u003d\u00272703810987\u0027 # either Kundennummer or telephone number\npassword\u003d\u0027\u0027\n```\nand run `allRide.py`\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eGetting the data\u003c/h2\u003e\n\u003cp\u003eSee my fork of \u003ca href\u003d\"https://github.com/Ik4ru5/pyABike\"\u003epyABike by Ik4ru5\u003c/a\u003e which calls Call a Bike SOAP API.\u003c/p\u003e\n\u003cp\u003eIn allRides.py enter your credentials\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"python\"\u003euserName\u003d\u0026#39;2703810987\u0026#39; # either Kundennummer or telephone number\npassword\u003d\u0026#39;\u0026#39;\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eand run \u003ccode\u003eallRide.py\u003c/code\u003e\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486542271723_-533675878",
+      "id": "20170208-092431_1974106688",
+      "dateCreated": "Feb 8, 2017 9:24:31 AM",
+      "dateStarted": "Feb 14, 2017 3:34:39 PM",
+      "dateFinished": "Feb 14, 2017 3:34:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n\nval ridesText \u003d sc.parallelize(\n    IOUtils.toString(\n        new URL(\"file://\"),\n        Charset.forName(\"utf8\")).split(\"\\n\"))\n\ncase class BikeRides(startDate: String, endDate: String, bikeNumber: Int)\n\nval ride \u003d ridesText.map(s \u003d\u003e s.split(\",\")).map({\n    s \u003d\u003e BikeRides(\n            s(0),\n            s(1),\n            s(2).trim().toInt\n        )}\n).toDF()\nride.registerTempTable(\"ride\")",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala"
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": true,
+        "lineNumbers": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.commons.io.IOUtils\n\nimport java.net.URL\n\nimport java.nio.charset.Charset\n\nridesText: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[4] at parallelize at \u003cconsole\u003e:33\n\ndefined class BikeRides\n\nride: org.apache.spark.sql.DataFrame \u003d [startDate: string, endDate: string ... 1 more field]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486540014728_-674528437",
+      "id": "20170208-084654_49275537",
+      "dateCreated": "Feb 8, 2017 8:46:54 AM",
+      "dateStarted": "Feb 14, 2017 3:35:02 PM",
+      "dateFinished": "Feb 14, 2017 3:35:03 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Rentals by year",
+      "text": "%sql \nselect year(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) AS year, count(1) AS numberOfRentals\nfrom ride\ngroup by year(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\norder by year",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "numberOfRentals",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "title": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tnumberOfRentals\n2010\t3\n2011\t58\n2012\t59\n2013\t118\n2014\t176\n2015\t184\n2016\t262\n2017\t23\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486540121948_-1086424298",
+      "id": "20170208-084841_416687493",
+      "dateCreated": "Feb 8, 2017 8:48:41 AM",
+      "dateStarted": "Feb 14, 2017 2:53:46 PM",
+      "dateFinished": "Feb 14, 2017 2:53:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Rentals by weekday",
+      "text": "%sql \nselect date_format(startDate, \u0027EEEE\u0027) AS weekday, count(1) AS numberOfRentals\nfrom ride\ngroup by date_format(startDate, \u0027EEEE\u0027)\norder by numberOfRentals DESC",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "weekday",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "numberOfRentals",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "title": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "weekday\tnumberOfRentals\nDonnerstag\t174\nMittwoch\t167\nFreitag\t166\nMontag\t148\nDienstag\t140\nSamstag\t46\nSonntag\t42\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486544271333_222974135",
+      "id": "20170208-095751_1519146950",
+      "dateCreated": "Feb 8, 2017 9:57:51 AM",
+      "dateStarted": "Feb 14, 2017 2:53:47 PM",
+      "dateFinished": "Feb 14, 2017 2:53:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Rentals by Month",
+      "text": "%sql \nselect date_format(startDate, \u0027MMMM\u0027) AS month, count(1) AS numberOfRentals\nfrom ride\nwhere date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) \u003e\u003d \u00272011-01-01\u0027\nAND date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) \u003c \u00272017-01-01\u0027\ngroup by date_format(startDate, \u0027MMMM\u0027)\norder by numberOfRentals DESC",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "month",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "numberOfRentals",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "title": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "month\tnumberOfRentals\nSeptember\t103\nOktober\t93\nNovember\t88\nJuli\t87\nJuni\t79\nAugust\t76\nJanuar\t63\nApril\t61\nMärz\t59\nMai\t51\nDezember\t49\nFebruar\t48\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486544436445_292475768",
+      "id": "20170208-100036_346276203",
+      "dateCreated": "Feb 8, 2017 10:00:36 AM",
+      "dateStarted": "Feb 14, 2017 2:53:47 PM",
+      "dateFinished": "Feb 14, 2017 2:53:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Most used bikes",
+      "text": "%sql \nselect bikeNumber, count(1) numberOfRents\nfrom ride \ngroup by bikeNumber\nhaving numberOfRents \u003e 2\norder by numberOfRents, bikeNumber",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 741.0,
+              "optionOpen": false,
+              "setting": {
+                "pieChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "bikeNumber",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "numberOfRents",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "title": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "bikeNumber\tnumberOfRents\n1510\t3\n3353\t3\n3735\t3\n7521\t3\n7637\t3\n8479\t3\n8650\t3\n8683\t3\n8753\t3\n8774\t3\n8837\t3\n8874\t3\n9035\t3\n9110\t3\n9148\t3\n9330\t3\n9725\t3\n9738\t3\n9775\t3\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486540068210_-1917389977",
+      "id": "20170208-084748_644791562",
+      "dateCreated": "Feb 8, 2017 8:47:48 AM",
+      "dateStarted": "Feb 14, 2017 2:53:47 PM",
+      "dateFinished": "Feb 14, 2017 2:53:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Rental duration over time",
+      "text": "%sql \nselect date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) AS start,\navg(\nunix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\n- unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)))/60 AS duration\nfrom ride\nwhere date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) \u003e \u00272010-01-01\u0027\ngroup by date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\norder by start",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "stackedAreaChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "stackedAreaChart": {
+                  "style": "stack"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "start",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "duration",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "start\tduration\n2010-09-10\t11.4\n2010-09-12\t12.883333333333333\n2011-07-15\t17.166666666666668\n2011-08-24\t19.95\n2011-08-26\t20.133333333333333\n2011-08-31\t10.0\n2011-09-01\t13.555555555555555\n2011-09-02\t12.166666666666666\n2011-09-05\t18.825\n2011-09-07\t7.583333333333333\n2011-09-20\t16.766666666666666\n2011-09-21\t16.977777777777778\n2011-09-23\t15.766666666666667\n2011-09-24\t16.825\n2011-09-25\t16.633333333333333\n2011-09-26\t21.808333333333334\n2011-09-27\t16.695833333333333\n2011-10-09\t17.141666666666666\n2011-10-25\t15.233333333333333\n2011-11-02\t14.75\n2011-11-09\t18.216666666666665\n2011-11-28\t15.933333333333334\n2011-12-02\t16.041666666666668\n2011-12-07\t15.841666666666667\n2011-12-09\t17.5\n2011-12-11\t26.491666666666667\n2011-12-13\t16.55\n2011-12-15\t17.016666666666666\n2011-12-16\t17.816666666666666\n2011-12-19\t19.166666666666668\n2011-12-20\t26.283333333333335\n2011-12-22\t16.675\n2011-12-26\t13.583333333333334\n2011-12-27\t11.733333333333333\n2012-01-04\t15.7\n2012-01-09\t15.4\n2012-01-20\t16.858333333333334\n2012-01-26\t13.766666666666667\n2012-02-01\t15.85\n2012-02-23\t16.783333333333335\n2012-03-12\t16.333333333333332\n2012-03-13\t16.908333333333335\n2012-03-14\t14.45\n2012-03-15\t17.258333333333333\n2012-03-16\t14.933333333333334\n2012-03-19\t18.958333333333332\n2012-03-22\t15.175\n2012-03-23\t16.383333333333333\n2012-03-25\t19.683333333333334\n2012-03-28\t17.566666666666666\n2012-04-17\t23.666666666666668\n2012-04-19\t10.483333333333333\n2012-04-20\t17.925\n2012-04-21\t14.725\n2012-04-23\t4.55\n2012-04-24\t3.4\n2012-04-26\t19.116666666666667\n2012-04-27\t18.758333333333333\n2012-05-05\t6.083333333333333\n2012-05-10\t19.233333333333334\n2012-05-17\t2.9\n2012-06-12\t15.783333333333333\n2012-09-04\t16.166666666666668\n2012-09-05\t16.05\n2012-09-06\t27.183333333333334\n2012-09-12\t17.433333333333334\n2012-09-27\t11.883333333333333\n2012-09-28\t17.55\n2012-09-29\t27.708333333333332\n2012-11-02\t12.66111111111111\n2012-11-06\t17.533333333333335\n2012-11-08\t23.061111111111114\n2012-11-21\t15.416666666666666\n2012-11-23\t17.316666666666666\n2012-11-29\t15.016666666666667\n2013-01-11\t14.775\n2013-01-14\t19.066666666666666\n2013-01-15\t16.933333333333334\n2013-01-16\t17.583333333333332\n2013-01-17\t22.433333333333334\n2013-01-18\t20.783333333333335\n2013-01-23\t18.916666666666668\n2013-01-24\t16.383333333333333\n2013-01-25\t19.025\n2013-01-28\t19.283333333333335\n2013-01-29\t17.15\n2013-02-07\t19.066666666666666\n2013-02-08\t17.4\n2013-02-12\t20.933333333333334\n2013-02-26\t0.016666666666666666\n2013-02-27\t16.716666666666665\n2013-03-05\t15.533333333333333\n2013-03-06\t9.908333333333333\n2013-03-24\t4.233333333333333\n2013-03-25\t10.083333333333334\n2013-03-27\t16.516666666666666\n2013-04-16\t18.258333333333333\n2013-04-18\t16.5\n2013-04-21\t8.5\n2013-04-23\t19.666666666666668\n2013-05-14\t15.566666666666666\n2013-05-15\t15.9\n2013-05-16\t18.383333333333333\n2013-05-17\t23.083333333333332\n2013-05-23\t16.458333333333332\n2013-05-24\t14.233333333333333\n2013-05-28\t14.4\n2013-05-29\t14.166666666666666\n2013-06-05\t28.216666666666665\n2013-06-06\t19.05\n2013-06-13\t18.383333333333333\n2013-06-18\t17.883333333333333\n2013-06-19\t14.541666666666666\n2013-06-20\t17.816666666666666\n2013-06-24\t22.166666666666668\n2013-06-27\t17.008333333333333\n2013-06-29\t22.316666666666666\n2013-07-03\t17.466666666666665\n2013-07-04\t17.283333333333335\n2013-07-06\t3.0\n2013-07-08\t24.833333333333332\n2013-07-09\t11.63888888888889\n2013-07-10\t14.35\n2013-07-12\t16.316666666666666\n2013-07-15\t16.9\n2013-07-17\t11.93888888888889\n2013-07-18\t16.891666666666666\n2013-07-22\t16.066666666666666\n2013-07-29\t18.866666666666667\n2013-07-31\t16.783333333333335\n2013-08-05\t22.183333333333334\n2013-08-08\t8.233333333333333\n2013-08-15\t15.033333333333333\n2013-08-19\t14.766666666666667\n2013-08-21\t14.175\n2013-08-29\t17.866666666666667\n2013-09-13\t18.1\n2013-09-16\t20.15\n2013-09-17\t16.766666666666666\n2013-10-11\t16.533333333333335\n2013-10-16\t18.6\n2013-10-18\t20.133333333333333\n2013-10-20\t11.908333333333333\n2013-10-24\t16.25\n2013-10-25\t15.158333333333333\n2013-10-29\t20.433333333333334\n2013-10-31\t18.916666666666668\n2013-11-01\t18.516666666666666\n2013-11-05\t16.483333333333334\n2013-11-06\t17.733333333333334\n2013-11-07\t19.833333333333332\n2013-11-08\t18.316666666666666\n2013-11-13\t18.958333333333332\n2013-11-18\t20.516666666666666\n2013-11-25\t18.683333333333334\n2013-11-29\t21.166666666666668\n2013-12-05\t15.3\n2013-12-10\t18.116666666666667\n2013-12-11\t19.633333333333333\n2013-12-12\t17.95\n2013-12-15\t12.491666666666667\n2013-12-16\t19.283333333333335\n2013-12-17\t17.641666666666666\n2013-12-18\t20.6\n2013-12-20\t18.816666666666666\n2013-12-29\t19.533333333333335\n2014-01-03\t16.633333333333333\n2014-01-13\t18.216666666666665\n2014-01-14\t19.933333333333334\n2014-01-15\t18.15\n2014-01-17\t18.7\n2014-01-20\t16.566666666666666\n2014-01-22\t18.483333333333334\n2014-02-04\t22.433333333333334\n2014-02-05\t17.466666666666665\n2014-02-06\t18.483333333333334\n2014-02-10\t15.783333333333333\n2014-02-13\t18.45\n2014-02-17\t17.6\n2014-02-20\t3.3666666666666667\n2014-02-23\t4.366666666666666\n2014-03-03\t18.633333333333333\n2014-03-05\t18.483333333333334\n2014-03-06\t10.016666666666667\n2014-03-07\t20.45\n2014-03-10\t18.866666666666667\n2014-03-12\t17.616666666666667\n2014-03-14\t18.516666666666666\n2014-03-17\t20.533333333333335\n2014-03-19\t18.033333333333335\n2014-03-21\t19.0\n2014-03-26\t12.2\n2014-03-31\t16.883333333333333\n2014-04-02\t16.366666666666667\n2014-04-03\t18.516666666666666\n2014-04-10\t19.233333333333334\n2014-04-23\t18.783333333333335\n2014-04-24\t13.983333333333333\n2014-04-25\t18.558333333333334\n2014-04-26\t8.716666666666667\n2014-05-05\t18.2\n2014-05-07\t18.866666666666667\n2014-05-11\t18.916666666666668\n2014-05-13\t17.05\n2014-05-15\t18.0\n2014-05-16\t19.5\n2014-05-21\t20.366666666666667\n2014-05-22\t16.02777777777778\n2014-05-26\t23.066666666666666\n2014-05-28\t18.6\n2014-05-30\t18.691666666666666\n2014-06-12\t12.05\n2014-06-13\t18.333333333333332\n2014-06-23\t15.533333333333333\n2014-06-25\t0.05\n2014-06-26\t10.741666666666667\n2014-06-27\t19.716666666666665\n2014-06-28\t24.733333333333334\n2014-06-29\t24.75\n2014-07-02\t19.2\n2014-07-03\t18.466666666666665\n2014-07-07\t17.27777777777778\n2014-07-09\t11.116666666666667\n2014-07-10\t18.25\n2014-07-14\t16.258333333333333\n2014-07-15\t19.116666666666667\n2014-07-17\t18.616666666666667\n2014-07-18\t17.216666666666665\n2014-07-21\t9.9\n2014-07-22\t10.45\n2014-07-23\t16.666666666666668\n2014-07-25\t16.95\n2014-07-28\t16.983333333333334\n2014-07-31\t12.275\n2014-08-01\t8.883333333333333\n2014-08-04\t15.108333333333333\n2014-08-07\t14.283333333333333\n2014-08-08\t3.1\n2014-08-09\t27.5\n2014-09-01\t21.766666666666666\n2014-09-02\t18.216666666666665\n2014-09-03\t20.083333333333332\n2014-09-04\t17.3\n2014-09-05\t12.283333333333333\n2014-09-08\t17.066666666666666\n2014-09-09\t16.466666666666665\n2014-09-10\t18.35\n2014-09-11\t11.241666666666667\n2014-09-12\t13.75\n2014-09-13\t23.266666666666666\n2014-09-16\t11.9\n2014-09-17\t19.216666666666665\n2014-09-19\t16.65\n2014-09-20\t23.933333333333334\n2014-09-22\t15.2\n2014-09-23\t9.008333333333333\n2014-09-24\t3.6666666666666665\n2014-09-25\t14.883333333333333\n2014-09-29\t15.041666666666666\n2014-09-30\t15.683333333333334\n2014-10-01\t12.25\n2014-10-02\t16.733333333333334\n2014-10-06\t3.4\n2014-10-07\t18.133333333333333\n2014-10-08\t21.866666666666667\n2014-10-09\t22.283333333333335\n2014-10-10\t17.683333333333334\n2014-10-11\t20.866666666666667\n2014-10-14\t18.666666666666668\n2014-10-15\t12.25\n2014-10-16\t9.35\n2014-10-17\t12.9625\n2014-10-20\t16.216666666666665\n2014-10-21\t17.3\n2014-10-22\t18.966666666666665\n2014-10-23\t15.133333333333333\n2014-10-28\t16.85\n2014-10-30\t8.891666666666667\n2014-11-01\t0.15\n2014-11-03\t8.225\n2014-11-04\t12.083333333333334\n2014-11-05\t16.416666666666668\n2014-11-07\t13.566666666666666\n2014-11-12\t16.525\n2014-11-13\t18.5\n2014-11-14\t18.15\n2014-11-17\t16.308333333333334\n2014-11-19\t13.866666666666667\n2014-11-22\t18.441666666666666\n2014-11-25\t18.183333333333334\n2014-11-26\t18.883333333333333\n2014-12-04\t14.133333333333333\n2014-12-11\t19.766666666666666\n2014-12-18\t12.783333333333333\n2014-12-21\t16.4\n2015-01-05\t17.466666666666665\n2015-01-06\t10.766666666666667\n2015-01-07\t19.2\n2015-01-16\t17.483333333333334\n2015-01-17\t3.7666666666666666\n2015-01-20\t16.016666666666666\n2015-01-21\t16.2\n2015-01-22\t14.9\n2015-01-23\t14.933333333333334\n2015-01-28\t5.161111111111111\n2015-01-29\t10.983333333333333\n2015-02-02\t16.433333333333334\n2015-02-04\t3.316666666666667\n2015-02-09\t16.45\n2015-02-10\t13.4\n2015-02-11\t16.216666666666665\n2015-02-13\t18.2\n2015-02-16\t15.066666666666666\n2015-02-19\t16.116666666666667\n2015-02-20\t16.616666666666667\n2015-03-04\t13.566666666666666\n2015-03-05\t16.433333333333334\n2015-03-10\t15.183333333333334\n2015-03-11\t3.316666666666667\n2015-03-12\t16.483333333333334\n2015-03-16\t15.683333333333334\n2015-04-08\t15.6\n2015-04-13\t13.05\n2015-04-17\t18.15\n2015-04-22\t11.833333333333334\n2015-04-23\t7.875\n2015-04-27\t17.616666666666667\n2015-05-03\t24.75\n2015-05-07\t4.166666666666667\n2015-05-08\t16.766666666666666\n2015-05-11\t18.15\n2015-05-12\t5.75\n2015-05-13\t16.466666666666665\n2015-05-22\t16.766666666666666\n2015-05-25\t2.6333333333333333\n2015-05-26\t7.325\n2015-05-29\t9.816666666666666\n2015-06-01\t16.3\n2015-06-03\t3.55\n2015-06-05\t15.726666666666667\n2015-06-08\t14.583333333333334\n2015-06-09\t20.65\n2015-06-10\t17.033333333333335\n2015-06-11\t14.616666666666667\n2015-06-13\t25.933333333333334\n2015-06-14\t59.15833333333333\n2015-06-15\t10.075\n2015-06-19\t6.627777777777778\n2015-06-21\t7.591666666666667\n2015-06-22\t18.1\n2015-06-23\t5.533333333333333\n2015-06-28\t59.21666666666667\n2015-06-29\t15.333333333333334\n2015-06-30\t16.666666666666668\n2015-07-01\t8.416666666666666\n2015-07-02\t16.833333333333332\n2015-07-05\t17.533333333333335\n2015-07-06\t8.108333333333333\n2015-07-09\t16.15\n2015-07-12\t22.158333333333335\n2015-07-15\t17.016666666666666\n2015-07-20\t16.783333333333335\n2015-07-22\t17.483333333333334\n2015-07-25\t12.558333333333334\n2015-07-27\t17.0\n2015-07-29\t16.3\n2015-08-02\t22.5\n2015-08-03\t15.35\n2015-08-05\t16.566666666666666\n2015-08-06\t17.016666666666666\n2015-08-10\t16.35\n2015-08-13\t16.683333333333334\n2015-08-14\t17.9\n2015-08-15\t13.233333333333333\n2015-08-16\t27.925\n2015-08-20\t14.383333333333333\n2015-08-24\t17.333333333333332\n2015-08-25\t15.4\n2015-08-26\t14.95\n2015-08-27\t25.8\n2015-08-28\t16.7\n2015-08-31\t12.258333333333333\n2015-09-02\t3.4833333333333334\n2015-09-03\t14.466666666666667\n2015-09-08\t16.6\n2015-09-09\t15.183333333333334\n2015-09-22\t15.783333333333333\n2015-09-24\t18.583333333333332\n2015-09-29\t25.733333333333334\n2015-10-01\t7.383333333333334\n2015-10-02\t12.95\n2015-10-05\t12.266666666666667\n2015-10-06\t3.183333333333333\n2015-10-07\t3.566666666666667\n2015-10-08\t13.25\n2015-10-14\t15.9\n2015-10-15\t10.933333333333334\n2015-10-17\t24.183333333333334\n2015-10-20\t14.083333333333334\n2015-10-21\t13.8\n2015-10-22\t13.833333333333334\n2015-10-23\t12.283333333333333\n2015-10-26\t14.1\n2015-10-27\t11.883333333333333\n2015-10-28\t13.55\n2015-10-30\t5.833333333333333\n2015-11-03\t8.016666666666667\n2015-11-05\t9.058333333333334\n2015-11-09\t11.9\n2015-11-11\t12.866666666666667\n2015-11-12\t6.011111111111111\n2015-11-17\t11.327777777777778\n2015-11-19\t17.425\n2015-11-24\t14.266666666666667\n2015-11-25\t11.583333333333334\n2015-11-27\t22.283333333333335\n2015-11-30\t12.933333333333334\n2015-12-01\t12.583333333333334\n2015-12-03\t12.575\n2015-12-05\t24.95\n2015-12-07\t13.883333333333333\n2015-12-08\t12.483333333333333\n2015-12-10\t14.783333333333333\n2015-12-13\t27.683333333333334\n2015-12-15\t11.016666666666667\n2015-12-17\t7.1\n2015-12-18\t12.391666666666667\n2016-01-05\t13.2\n2016-01-06\t16.083333333333332\n2016-01-08\t11.45\n2016-01-11\t13.641666666666667\n2016-01-12\t10.916666666666666\n2016-01-14\t12.4\n2016-01-15\t7.983333333333333\n2016-01-16\t25.925\n2016-01-18\t13.133333333333333\n2016-01-21\t13.95\n2016-01-22\t12.283333333333333\n2016-01-25\t12.566666666666666\n2016-01-26\t9.35\n2016-01-27\t12.4\n2016-01-28\t16.633333333333333\n2016-01-29\t12.016666666666667\n2016-02-01\t8.277777777777779\n2016-02-03\t13.033333333333333\n2016-02-04\t7.366666666666666\n2016-02-05\t11.583333333333334\n2016-02-08\t12.6\n2016-02-11\t8.008333333333333\n2016-02-12\t15.816666666666666\n2016-02-16\t12.833333333333334\n2016-02-17\t12.3\n2016-02-19\t13.3\n2016-02-22\t11.733333333333333\n2016-02-23\t16.908333333333335\n2016-02-24\t12.533333333333333\n2016-02-26\t4.966666666666667\n2016-02-27\t4.15\n2016-03-02\t13.316666666666666\n2016-03-03\t13.016666666666667\n2016-03-07\t13.4\n2016-03-10\t15.158333333333333\n2016-03-11\t12.933333333333334\n2016-03-12\t4.116666666666666\n2016-03-14\t11.9\n2016-03-15\t14.808333333333334\n2016-03-16\t4.733333333333333\n2016-03-17\t12.3\n2016-03-18\t11.783333333333333\n2016-03-22\t16.233333333333334\n2016-03-23\t11.916666666666666\n2016-03-30\t13.2\n2016-03-31\t15.316666666666666\n2016-04-01\t11.433333333333334\n2016-04-04\t12.283333333333333\n2016-04-05\t12.9\n2016-04-06\t13.7\n2016-04-08\t6.170833333333333\n2016-04-11\t11.833333333333334\n2016-04-12\t11.66111111111111\n2016-04-14\t12.466666666666667\n2016-04-18\t11.616666666666667\n2016-04-19\t17.666666666666668\n2016-04-21\t17.133333333333333\n2016-04-22\t11.7\n2016-04-25\t12.3\n2016-04-26\t15.075\n2016-04-28\t13.416666666666666\n2016-05-03\t16.066666666666666\n2016-05-04\t12.066666666666666\n2016-05-09\t11.983333333333333\n2016-05-11\t10.383333333333333\n2016-05-24\t15.65\n2016-05-27\t8.35\n2016-05-30\t12.533333333333333\n2016-06-01\t12.783333333333333\n2016-06-02\t14.45\n2016-06-03\t6.979166666666667\n2016-06-07\t4.383333333333334\n2016-06-08\t11.241666666666667\n2016-06-09\t15.916666666666666\n2016-06-10\t13.341666666666667\n2016-06-13\t15.45\n2016-06-14\t13.85\n2016-06-15\t11.158333333333333\n2016-06-16\t12.4\n2016-06-17\t11.65\n2016-06-18\t24.883333333333333\n2016-06-20\t12.916666666666666\n2016-06-21\t10.066666666666666\n2016-06-22\t3.3916666666666666\n2016-06-23\t11.683333333333334\n2016-06-28\t9.133333333333333\n2016-06-29\t12.883333333333333\n2016-06-30\t12.95\n2016-07-04\t12.9\n2016-07-05\t21.508333333333333\n2016-07-06\t10.366666666666667\n2016-07-07\t11.533333333333333\n2016-07-08\t11.766666666666667\n2016-07-11\t11.633333333333333\n2016-07-13\t11.866666666666667\n2016-07-14\t14.275\n2016-07-15\t12.566666666666666\n2016-07-18\t11.733333333333333\n2016-07-19\t14.641666666666667\n2016-07-20\t12.783333333333333\n2016-07-21\t12.816666666666666\n2016-07-22\t14.366666666666667\n2016-07-23\t7.533333333333333\n2016-07-27\t12.216666666666667\n2016-07-29\t12.25\n2016-08-01\t12.066666666666666\n2016-08-02\t3.966666666666667\n2016-08-03\t11.966666666666667\n2016-08-04\t12.841666666666667\n2016-08-05\t12.275\n2016-08-09\t13.95\n2016-08-10\t6.241666666666666\n2016-08-12\t12.266666666666667\n2016-08-15\t11.008333333333333\n2016-08-16\t11.95\n2016-08-17\t15.35\n2016-08-18\t11.55\n2016-08-19\t12.383333333333333\n2016-08-22\t11.508333333333333\n2016-08-24\t10.425\n2016-08-25\t11.825\n2016-08-26\t6.666666666666667\n2016-08-27\t9.1\n2016-08-29\t11.816666666666666\n2016-08-30\t6.741666666666666\n2016-09-01\t12.166666666666666\n2016-09-02\t11.983333333333333\n2016-09-05\t12.833333333333334\n2016-09-06\t14.233333333333333\n2016-09-08\t6.425\n2016-09-12\t13.1\n2016-09-13\t14.466666666666667\n2016-09-14\t12.85\n2016-09-15\t15.675\n2016-09-16\t8.261111111111111\n2016-09-22\t17.666666666666668\n2016-09-23\t6.841666666666667\n2016-09-26\t8.55\n2016-09-27\t12.7\n2016-09-28\t15.216666666666667\n2016-10-01\t13.391666666666667\n2016-10-04\t13.75\n2016-10-05\t10.875\n2016-10-06\t6.183333333333334\n2016-10-07\t12.025\n2016-10-10\t11.2\n2016-10-11\t16.166666666666668\n2016-10-12\t11.616666666666667\n2016-10-13\t11.566666666666666\n2016-10-14\t12.1\n2016-10-17\t12.1\n2016-10-18\t12.766666666666667\n2016-10-19\t12.483333333333333\n2016-10-20\t12.866666666666667\n2016-10-21\t11.666666666666666\n2016-10-24\t11.816666666666666\n2016-10-25\t12.366666666666667\n2016-10-27\t11.616666666666667\n2016-10-28\t9.266666666666667\n2016-10-31\t9.283333333333333\n2016-11-01\t8.125\n2016-11-02\t12.133333333333333\n2016-11-03\t6.883333333333334\n2016-11-04\t12.116666666666667\n2016-11-07\t11.833333333333334\n2016-11-08\t7.283333333333333\n2016-11-09\t12.433333333333334\n2016-11-11\t14.466666666666667\n2016-11-14\t12.733333333333333\n2016-11-15\t11.983333333333333\n2016-11-16\t12.1\n2016-11-17\t9.825\n2016-11-18\t10.733333333333333\n2016-11-19\t25.766666666666666\n2016-11-21\t11.233333333333333\n2016-11-22\t11.75\n2016-11-23\t12.533333333333333\n2016-11-24\t14.333333333333334\n2017-01-02\t24.6\n2017-01-04\t21.716666666666665\n2017-01-05\t18.05\n2017-01-09\t21.766666666666666\n2017-01-10\t20.016666666666666\n2017-01-16\t7.388888888888888\n2017-01-17\t24.516666666666666\n2017-01-18\t20.616666666666667\n2017-01-23\t22.233333333333334\n2017-01-25\t21.65\n2017-01-26\t20.816666666666666\n2017-01-27\t22.108333333333334\n2017-02-01\t23.766666666666666\n2017-02-02\t21.316666666666666\n2017-02-03\t20.116666666666667\n2017-02-05\t5.911111111111111\n2017-02-06\t22.716666666666665\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486542217964_-183230927",
+      "id": "20170208-092337_1285512650",
+      "dateCreated": "Feb 8, 2017 9:23:37 AM",
+      "dateStarted": "Feb 14, 2017 2:53:48 PM",
+      "dateFinished": "Feb 14, 2017 2:53:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Total duration",
+      "text": "%sql \nselect\ncount(1) as num_rides,\nsum(\nunix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\n- unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)))/1440 AS total_duration_in_hours,\nsum(\nunix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\n- unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)))/86400 AS total_duration_in_days\nfrom ride\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "num_rides\ttotal_duration_in_hours\ttotal_duration_in_days\n883\t531.9340277777778\t8.86556712962963\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486543178044_-17469858",
+      "id": "20170208-093938_1875721795",
+      "dateCreated": "Feb 8, 2017 9:39:38 AM",
+      "dateStarted": "Feb 14, 2017 2:53:48 PM",
+      "dateFinished": "Feb 14, 2017 2:53:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Rentals by hour",
+      "text": "%sql \nselect hour(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) AS hour, count(1) AS numberOfRentals\nfrom ride\ngroup by hour(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027))\norder by hour",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "hour\tnumberOfRentals\n0\t3\n1\t4\n2\t5\n6\t52\n7\t184\n8\t150\n9\t74\n10\t8\n11\t8\n12\t12\n13\t17\n14\t14\n15\t51\n16\t96\n17\t85\n18\t47\n19\t20\n20\t19\n21\t13\n22\t6\n23\t15\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486628354386_1981164706",
+      "id": "20170209-091914_20167190",
+      "dateCreated": "Feb 9, 2017 9:19:14 AM",
+      "dateStarted": "Feb 14, 2017 2:53:48 PM",
+      "dateFinished": "Feb 14, 2017 2:53:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Durations by weekday",
+      "text": "%r\n\ndf \u003c- sql(sqlContext, \"select  date_format(startDate, \u0027EEEE\u0027) as xvar,\nmin(unix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) - unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)))/60 as low,\npercentile_approx(unix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) - unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)), .25)/60 as open,\npercentile_approx(unix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) - unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)), .75)/60 as close,\nmax(unix_timestamp(date_format(endDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) - unix_timestamp(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)))/60 as high\nfrom ride where date(date_format(startDate, \u0027YYYY-MM-dd HH:mm:ss\u0027)) \u003e \u00272010-01-01\u0027 group by date_format(startDate, \u0027EEEE\u0027)\")\n\nlibrary(googleVis)\ndy \u003c- as.data.frame(df, col.names \u003d c(\"xvar\",\"low\", \"open\", \"close\", \"high\"))\nboxes \u003c- gvisCandlestickChart(dy, options\u003dlist(legend\u003d\u0027none\u0027))\nprint(boxes, tag \u003d \u0027chart\u0027)",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "r"
+        },
+        "editorMode": "ace/mode/r",
+        "editorHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\n\u003c!-- CandlestickChart generated in R 3.3.1 by googleVis 0.6.2 package --\u003e\n\n\u003c!-- Tue Feb 14 15:40:19 2017 --\u003e\n\n\u003c!-- jsHeader --\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\n \n// jsData \nfunction gvisDataCandlestickChartIDde651a8fcb53 () {\nvar data \u003d new google.visualization.DataTable();\nvar datajson \u003d\n[\n [\n\"Sonntag\",\n0.3,\n9.216666667,\n25.91666667,\n59.51666667\n],\n[\n\"Dienstag\",\n0.01666666667,\n11.9,\n17.05,\n29.36666667\n],\n[\n\"Donnerstag\",\n0.01666666667,\n12.06666667,\n17.95,\n27.18333333\n],\n[\n\"Montag\",\n0.2,\n12.06666667,\n17.61666667,\n26.13333333\n],\n[\n\"Freitag\",\n0.06666666667,\n11.66666667,\n18.1,\n24.25\n],\n[\n\"Mittwoch\",\n0.01666666667,\n11.91666667,\n17.46666667,\n28.21666667\n],\n[\n\"Samstag\",\n0.01666666667,\n7.466666667,\n24.83333333,\n28.26666667\n] \n];\ndata.addColumn(\u0027string\u0027,\u0027xvar\u0027);\ndata.addColumn(\u0027number\u0027,\u0027low\u0027);\ndata.addColumn(\u0027number\u0027,\u0027open\u0027);\ndata.addColumn(\u0027number\u0027,\u0027close\u0027);\ndata.addColumn(\u0027number\u0027,\u0027high\u0027);\ndata.addRows(datajson);\nreturn(data);\n}\n \n// jsDrawChart\nfunction drawChartCandlestickChartIDde651a8fcb53() {\nvar data \u003d gvisDataCandlestickChartIDde651a8fcb53();\nvar options \u003d {};\noptions[\"allowHtml\"] \u003d true;\noptions[\"legend\"] \u003d \"none\";\n\n    var chart \u003d new google.visualization.CandlestickChart(\n    document.getElementById(\u0027CandlestickChartIDde651a8fcb53\u0027)\n    );\n    chart.draw(data,options);\n    \n\n}\n  \n \n// jsDisplayChart\n(function() {\nvar pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\nvar callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\nvar chartid \u003d \"corechart\";\n  \n// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)\nvar i, newPackage \u003d true;\nfor (i \u003d 0; newPackage \u0026\u0026 i \u003c pkgs.length; i++) {\nif (pkgs[i] \u003d\u003d\u003d chartid)\nnewPackage \u003d false;\n}\nif (newPackage)\n  pkgs.push(chartid);\n  \n// Add the drawChart function to the global list of callbacks\ncallbacks.push(drawChartCandlestickChartIDde651a8fcb53);\n})();\nfunction displayChartCandlestickChartIDde651a8fcb53() {\n  var pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\n  var callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\n  window.clearTimeout(window.__gvisLoad);\n  // The timeout is set to 100 because otherwise the container div we are\n  // targeting might not be part of the document yet\n  window.__gvisLoad \u003d setTimeout(function() {\n  var pkgCount \u003d pkgs.length;\n  google.load(\"visualization\", \"1\", { packages:pkgs, callback: function() {\n  if (pkgCount !\u003d pkgs.length) {\n  // Race condition where another setTimeout call snuck in after us; if\n  // that call added a package, we must not shift its callback\n  return;\n}\nwhile (callbacks.length \u003e 0)\ncallbacks.shift()();\n} });\n}, 100);\n}\n \n// jsFooter\n\u003c/script\u003e\n \n\n\u003c!-- jsChart --\u003e  \n\n\u003cscript type\u003d\"text/javascript\" src\u003d\"https://www.google.com/jsapi?callback\u003ddisplayChartCandlestickChartIDde651a8fcb53\"\u003e\u003c/script\u003e\n \n\n\u003c!-- divChart --\u003e\n\n\u003cdiv id\u003d\"CandlestickChartIDde651a8fcb53\" style\u003d\"width: 500; height: automatic;\"\u003e\n\u003c/div\u003e\n\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1486646913976_-2077439983",
+      "id": "20170209-142833_1599997923",
+      "dateCreated": "Feb 9, 2017 2:28:33 PM",
+      "dateStarted": "Feb 14, 2017 3:40:18 PM",
+      "dateFinished": "Feb 14, 2017 3:40:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 14, 2017 3:52:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1487083047474_1227013721",
+      "id": "20170214-153727_1513328522",
+      "dateCreated": "Feb 14, 2017 3:37:27 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "stadtrad rental data",
+  "id": "2C877K35R",
+  "angularObjects": {
+    "2CAQPCJ4R:shared_process": [],
+    "2C99P8NRV:shared_process": [],
+    "2CBCE14X2:shared_process": [],
+    "2CBBMYWEZ:shared_process": [],
+    "2CAEV23ZU:shared_process": [],
+    "2C8QTJUSA:shared_process": [],
+    "2C8SDDCGU:shared_process": [],
+    "2C8QYXWX3:shared_process": [],
+    "2CB3NTPEZ:shared_process": [],
+    "2C9A1QC1G:shared_process": [],
+    "2CAGCXYAX:shared_process": [],
+    "2C7S4CYCS:shared_process": [],
+    "2C8V7GFU7:shared_process": [],
+    "2CA2MV1WC:shared_process": [],
+    "2C824H6SS:shared_process": [],
+    "2CAF9G6WA:shared_process": [],
+    "2C8BS3QQ5:shared_process": [],
+    "2C9ATZFYF:shared_process": [],
+    "2C9PM7GKK:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}
